@@ -7,7 +7,7 @@
 	<groupId>ru.trylogic</groupId>
 	<artifactId>trylogic-framework-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<properties>
 		<flexmojos.version>4.2-beta</flexmojos.version>
