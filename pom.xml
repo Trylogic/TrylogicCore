@@ -13,6 +13,13 @@
 		<flexmojos.version>4.2-beta</flexmojos.version>
 		<flex.framework.version>4.5.1.21328</flex.framework.version>
 		<playerglobal.version>10.0.0</playerglobal.version>
+
+		<module.bootloader.version>1.0.0</module.bootloader.version>
+		<module.flex-framework-patch.version>1.0.0</module.flex-framework-patch.version>
+		<module.global-dispatcher.version>1.0.0</module.global-dispatcher.version>
+		<module.insulin.version>1.0.0</module.insulin.version>
+		<module.trylogic-core.version>1.0.0</module.trylogic-core.version>
+		<module.trylogic-utils.version>1.0.0</module.trylogic-utils.version>
 	</properties>
 
 	<modules>
