@@ -14,12 +14,12 @@
 		<flex.framework.version>4.5.1.21328</flex.framework.version>
 		<playerglobal.version>10.0.0</playerglobal.version>
 
-		<module.bootloader.version>1.0.0</module.bootloader.version>
-		<module.flex-framework-patch.version>1.0.0</module.flex-framework-patch.version>
-		<module.global-dispatcher.version>1.0.0</module.global-dispatcher.version>
-		<module.insulin.version>1.0.0</module.insulin.version>
-		<module.trylogic-core.version>1.0.0</module.trylogic-core.version>
-		<module.trylogic-utils.version>1.0.0</module.trylogic-utils.version>
+		<module.bootloader.version>1.0.0-SNAPSHOT</module.bootloader.version>
+		<module.flex-framework-patch.version>1.0.0-SNAPSHOT</module.flex-framework-patch.version>
+		<module.global-dispatcher.version>1.0.0-SNAPSHOT</module.global-dispatcher.version>
+		<module.insulin.version>1.0.0-SNAPSHOT</module.insulin.version>
+		<module.trylogic-core.version>1.0.0-SNAPSHOT</module.trylogic-core.version>
+		<module.trylogic-utils.version>1.0.0-SNAPSHOT</module.trylogic-utils.version>
 	</properties>
 
 	<modules>
@@ -35,30 +35,30 @@
 		<sourceDirectory>src/main/flex</sourceDirectory>
 		<testSourceDirectory>src/test/flex</testSourceDirectory>
 
-			<plugins>
-				<plugin>
-					<groupId>org.sonatype.flexmojos</groupId>
-					<artifactId>flexmojos-maven-plugin</artifactId>
-					<version>${flexmojos.version}</version>
-					<extensions>true</extensions>
-					<configuration>
-						<storepass/>
-						<skipTests>true</skipTests>
-						<skipTest>true</skipTest>
-						<loadConfigs>
-							<config>src/main/resources/compiler-config.xml</config>
-						</loadConfigs>
-					</configuration>
-					<dependencies>
-						<dependency>
-							<groupId>com.adobe.flex</groupId>
-							<artifactId>compiler</artifactId>
-							<version>${flex.framework.version}</version>
-							<type>pom</type>
-						</dependency>
-					</dependencies>
-				</plugin>
-			</plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>${flexmojos.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<storepass/>
+					<skipTests>true</skipTests>
+					<skipTest>true</skipTest>
+					<loadConfigs>
+						<config>src/main/resources/compiler-config.xml</config>
+					</loadConfigs>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flex.framework.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
 
 	</build>
 
@@ -100,6 +100,22 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+		<repository>
+			<id>trylogic</id>
+			<name>Trylogic</name>
+			<url>http://repo.trylogic.ru/content/repositories/public/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+			<layout>default</layout>
 		</repository>
 	</repositories>
 
