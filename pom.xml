@@ -7,18 +7,19 @@
 	<groupId>ru.trylogic</groupId>
 	<artifactId>trylogic-framework-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 
 	<properties>
 		<flexmojos.version>4.2-beta</flexmojos.version>
 		<flex.framework.version>4.5.1.21328</flex.framework.version>
 		<playerglobal.version>10.0.0</playerglobal.version>
 
-		<module.bootloader.version>1.0.0-SNAPSHOT</module.bootloader.version>
-		<module.flex-framework-patch.version>1.0.0-SNAPSHOT</module.flex-framework-patch.version>
-		<module.global-dispatcher.version>1.0.0-SNAPSHOT</module.global-dispatcher.version>
-		<module.insulin.version>1.0.0-SNAPSHOT</module.insulin.version>
-		<module.trylogic-core.version>1.0.0-SNAPSHOT</module.trylogic-core.version>
+		<module.bootloader.version>1.1.0-SNAPSHOT</module.bootloader.version>
+		<module.flex-framework-patch.version>1.1.0-SNAPSHOT</module.flex-framework-patch.version>
+		<module.global-dispatcher.version>1.1.0-SNAPSHOT</module.global-dispatcher.version>
+		<module.insulin.version>1.1.0-SNAPSHOT</module.insulin.version>
+		<module.trylogic-core.version>1.1.0-SNAPSHOT</module.trylogic-core.version>
+		<module.trylogic-starling-support.version>1.1.0-SNAPSHOT</module.trylogic-starling-support.version>
 		<module.trylogic-utils.version>1.0.0-SNAPSHOT</module.trylogic-utils.version>
 	</properties>
 
@@ -28,6 +29,7 @@
 		<module>GlobalDispatcher</module>
 		<module>Insulin</module>
 		<module>TrylogicCore</module>
+		<module>StarlingSupport</module>
 		<module>TrylogicUtils</module>
 	</modules>
 
@@ -117,6 +119,21 @@
 			</snapshots>
 			<layout>default</layout>
 		</repository>
+
+		<repository>
+			<id>trylogic-releases</id>
+			<name>Trylogic releases</name>
+			<url>http://repo.trylogic.ru/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<layout>default</layout>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -143,4 +160,20 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>trylogic</id>
+			<name>Trylogic</name>
+			<url>http://repo.trylogic.ru/content/repositories/public/</url>
+			<layout>default</layout>
+		</snapshotRepository>
+
+		<repository>
+			<id>trylogic-releases</id>
+			<name>Trylogic releases</name>
+			<url>http://repo.trylogic.ru/content/repositories/releases/</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 </project>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+
+    Trylogic Components
+
+-->
+<componentPackage>
+
+	<component id="Bootstrap" class="tl.starling.core.StarlingBootstrap"/>
+
+	<component id="View" class="tl.starling.view.StarlingView"/>
+	<component id="ViewContainer" class="tl.starling.view.StarlingViewContainer"/>
+
+</componentPackage>

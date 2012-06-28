@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>trylogic-starling-support</artifactId>
+	<packaging>swc</packaging>
+	<version>${module.trylogic-starling-support.version}</version>
+
+	<parent>
+		<groupId>ru.trylogic</groupId>
+		<artifactId>trylogic-framework-parent</artifactId>
+		<version>1.1.0-SNAPSHOT</version>
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<configuration>
+					<skipTest>true</skipTest>
+					<skipTests>true</skipTests>
+					<storepass/>
+					<namespaces>
+						<namespace>
+							<uri>http://www.trylogic.ru/starling</uri>
+							<manifest>src/main/resources/tl-manifest.xml</manifest>
+						</namespace>
+					</namespaces>
+					<includeNamespaces>
+						<namespace>http://www.trylogic.ru/starling</namespace>
+					</includeNamespaces>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>ru.trylogic</groupId>
+			<artifactId>trylogic-core</artifactId>
+			<version>${module.trylogic-core.version}</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ru.trylogic</groupId>
+			<artifactId>insulin</artifactId>
+			<version>${module.insulin.version}</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ru.trylogic</groupId>
+			<artifactId>global-dispatcher</artifactId>
+			<version>${module.global-dispatcher.version}</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ru.trylogic</groupId>
+			<artifactId>bootloader</artifactId>
+			<version>${module.bootloader.version}</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ru.trylogic</groupId>
+			<artifactId>flex-framework-patch</artifactId>
+			<version>${module.flex-framework-patch.version}</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ru.trylogic</groupId>
+			<artifactId>trylogic-utils</artifactId>
+			<version>${module.trylogic-utils.version}</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gamua</groupId>
+			<artifactId>starling-framework</artifactId>
+			<version>1.1.0</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>trylogic</id>
+			<name>Trylogic</name>
+			<url>http://repo.trylogic.ru/content/repositories/public/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+			<layout>default</layout>
+		</repository>
+
+		<repository>
+			<id>trylogic-releases</id>
+			<name>Trylogic releases</name>
+			<url>http://repo.trylogic.ru/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+</project>
