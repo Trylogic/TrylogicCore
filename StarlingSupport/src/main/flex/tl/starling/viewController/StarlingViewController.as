@@ -1,10 +1,12 @@
 ﻿package tl.starling.viewController
 {
 
+	import flash.events.Event;
+
 	import mx.utils.object_proxy;
 
-	import starling.display.*;
-	import starling.events.*;
+	import starling.display.Sprite;
+	import starling.display.DisplayObjectContainer;
 
 	import tl.actions.IActionDispatcher;
 	import tl.ioc.IoCHelper;
@@ -14,8 +16,7 @@
 
 	use namespace object_proxy;
 
-	[Outlet]
-	public class StarlingViewController extends EventDispatcher
+	public class StarlingViewController
 	{
 		{
 			if ( describeTypeCached( StarlingViewController )..metadata.( @name == "Outlet" ).length() == 0 )
@@ -24,10 +25,13 @@
 			}
 		}
 
-		protected namespace lifecycle = "http://www.trylogic.ru/viewController/lifecycle";
+		public namespace lifecycle = "http://www.trylogic.ru/viewController/lifecycle";
 
 		[Inject]
 		public var actionDispatcher : IActionDispatcher;
+
+		[Outlet]
+		public var face : Sprite;
 
 		private var _viewControllerContainer : StarlingViewController;
 		private var _viewInstance : StarlingView;
@@ -39,43 +43,39 @@
 			IoCHelper.injectTo( this );
 		}
 
-		public function addViewToContainer( container : * ) : void
+		public function addViewToContainer( container : DisplayObjectContainer ) : void
 		{
-			const displayObjectContainer : DisplayObjectContainer = DisplayObjectContainer( container );
-			if ( DisplayObjectContainer( view ).parent == displayObjectContainer )
+			if ( face.parent == container )
 			{
 				return;
 			}
 
 			lifecycle::viewBeforeAddedToStage();
 
-			displayObjectContainer.addChild( view as DisplayObject );
+			container.addChild( face );
 		}
 
-		public function addViewToContainerAtIndex( container : *, index : int ) : void
+		public function addViewToContainerAtIndex( container : DisplayObjectContainer, index : int ) : void
 		{
 			addViewToContainer( container );
 
 			setViewIndexInContainer( container, index );
 		}
 
-		public function setViewIndexInContainer( container : *, index : int ) : void
+		public function setViewIndexInContainer( container : DisplayObjectContainer, index : int ) : void
 		{
-			const displayObjectContainer : DisplayObjectContainer = DisplayObjectContainer( container );
-
-			displayObjectContainer.setChildIndex( view as DisplayObject, index < 0 ? (displayObjectContainer.numChildren + index) : index );
+			container.setChildIndex( face, index < 0 ? (container.numChildren + index) : index );
 		}
 
-		public function removeViewFromContainer( container : * ) : void
+		public function removeViewFromContainer( container : DisplayObjectContainer ) : void
 		{
 			lifecycle::viewBeforeRemovedFromStage();
 
 			if ( viewIsLoaded )
 			{
-				var viewDisplayObject : DisplayObject = view as DisplayObject;
-				if ( viewDisplayObject.parent )
+				if ( face.parent )
 				{
-					viewDisplayObject.parent.removeChild( viewDisplayObject );
+					face.parent.removeChild( face );
 				}
 			}
 		}
@@ -125,12 +125,6 @@
 
 				internalViewLoaded();
 				lifecycle::viewLoaded();
-
-				if ( _viewInstance.isAddedToStage() )
-				{
-					lifecycle::viewBeforeAddedToStage();
-					viewEventHandler( new Event( Event.ADDED_TO_STAGE ) );
-				}
 			}
 		}
 

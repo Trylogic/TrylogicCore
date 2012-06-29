@@ -36,8 +36,6 @@ package tl.starling.core
 
 			IoCHelper.registerType( IBootstrap, ApplicationDomain.currentDomain.getDefinition( info()["mainClassName"] ) as Class, SingletonFactory );
 
-			//IBootstrap( IoCHelper.resolve( IBootstrap ) ).init( this );
-
 			IoCHelper.registerType(Starling, Starling, SingletonFactory);
 			IoCHelper.registerType(Juggler, Juggler, SingletonFactory);
 
