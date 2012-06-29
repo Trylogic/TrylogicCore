@@ -5,6 +5,8 @@ package tl.starling.core
 
 	import mx.core.IStateClient2;
 
+	import starling.core.Starling;
+
 	import tl.actions.ActionDispatcher;
 
 	import tl.actions.IActionDispatcher;
@@ -21,7 +23,7 @@ package tl.starling.core
 	import tl.service.IService;
 	import tl.utils.StatesImpl;
 
-	[Frame(factoryClass="tl.core.TrylogicApplicationLoader")]
+	[Frame(factoryClass="tl.starling.core.StarlingApplicationLoader")]
 	public class StarlingBootstrap implements IBootstrap
 	{
 		{
@@ -32,6 +34,7 @@ package tl.starling.core
 		public var preloader : Class;
 
 		public var subModules : Vector.<StarlingBootstrap>;
+
 		public var applicationView : StarlingView;
 
 		protected var initialized : Boolean = false;
@@ -56,7 +59,6 @@ package tl.starling.core
 
 			initServices();
 		}
-
 
 		public function StarlingBootstrap()
 		{
@@ -93,15 +95,6 @@ package tl.starling.core
 			if ( applicationView == null )
 			{
 				throw new ArgumentError( "applicationView of IBootstrap can't be null" );
-			}
-
-			if ( _services )
-			{
-				_services.push( new StarlingService() );
-			}
-			else
-			{
-				_services = new <IService>[new StarlingService()];
 			}
 
 			initialized = true;
