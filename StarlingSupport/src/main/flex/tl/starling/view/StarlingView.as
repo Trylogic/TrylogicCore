@@ -111,6 +111,7 @@
 			if ( element is StarlingView )
 			{
 				element.controller.addViewToContainer( face );
+				element.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, dispatchEvent);
 				_subViews.push( element );
 			}
 			else
@@ -154,6 +155,7 @@
 			if ( element is StarlingView )
 			{
 				StarlingView( element ).controller.removeViewFromContainer( face );
+				element.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, dispatchEvent);
 
 				_subViews.splice( _subViews.indexOf( element ), 1 );
 			}
