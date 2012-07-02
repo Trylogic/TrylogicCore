@@ -15,7 +15,7 @@ package tl.starling.core
 	import tl.core.IBootstrap;
 	import tl.factory.ConstructorFactory;
 	import tl.factory.ServiceFactory;
-	import tl.factory.SingletonFactory;
+	import tl.factory.ActionDispatcherFactory;
 	import tl.ioc.IoCHelper;
 	import tl.starling.view.StarlingView;
 
@@ -28,7 +28,7 @@ package tl.starling.core
 	{
 		{
 			IoCHelper.registerType( IStateClient2, StatesImpl, ConstructorFactory );
-			IoCHelper.registerType( IActionDispatcher, ActionDispatcher, SingletonFactory );
+			IoCHelper.registerType( IActionDispatcher, ActionDispatcher, ActionDispatcherFactory );
 		}
 
 		public var preloader : Class;
