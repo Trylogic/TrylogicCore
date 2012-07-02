@@ -10,4 +10,6 @@
 
 	<component id="View" class="tl.starling.view.StarlingView"/>
 
+	<component id="EventMap" class="tl.starling.view.EventMap"/>
+
 </componentPackage>
