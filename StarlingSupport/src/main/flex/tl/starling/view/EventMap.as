@@ -50,7 +50,7 @@ package tl.starling.view
 
 		public function bind() : void
 		{
-			if ( _source != null )
+			if ( _source != null && !_source.hasEventListener(type))
 			{
 				_source.addEventListener( type, handler );
 			}
