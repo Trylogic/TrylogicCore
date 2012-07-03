@@ -3,6 +3,8 @@
 
 	import flash.events.Event;
 
+	import mx.events.PropertyChangeEvent;
+
 	import mx.utils.object_proxy;
 
 	import starling.display.Sprite;
@@ -137,6 +139,15 @@
 			//actionDispatcher = null;
 		}
 
+		[Event(name="propertyChange")]
+		public function onPropertyChange(event : PropertyChangeEvent) : void
+		{
+			if(_viewOutlets && _viewOutlets.indexOf(event.property.toString()) != -1)
+			{
+				setOutlet(String(event.property));
+			}
+		}
+
 		lifecycle function viewBeforeAddedToStage() : void
 		{
 		}
@@ -187,7 +198,11 @@
 				_viewOutlets = [];
 
 				describeTypeCached( this ).variable.( valueOf().metadata.( @name == "Outlet" ).length() > 0 ).(
-						_viewOutlets.push( @name )
+						_viewOutlets.push( @name.toString() )
+						);
+
+				describeTypeCached( this ).accessor.(@access != "readonly").( valueOf().metadata.( @name == "Outlet" ).length() > 0 ).(
+						_viewOutlets.push( @name.toString() )
 						);
 			}
 
