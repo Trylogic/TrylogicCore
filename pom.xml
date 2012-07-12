@@ -17,7 +17,7 @@
 		<module.bootloader.version>1.1.1-SNAPSHOT</module.bootloader.version>
 		<module.flex-framework-patch.version>1.1.3-SNAPSHOT</module.flex-framework-patch.version>
 		<module.global-dispatcher.version>1.1.4-SNAPSHOT</module.global-dispatcher.version>
-		<module.insulin.version>1.1.2-SNAPSHOT</module.insulin.version>
+		<module.insulin.version>1.1.3-SNAPSHOT</module.insulin.version>
 		<module.trylogic-core.version>2.0.0-beta1-SNAPSHOT</module.trylogic-core.version>
 		<module.trylogic-utils.version>1.0.0-SNAPSHOT</module.trylogic-utils.version>
 	</properties>
