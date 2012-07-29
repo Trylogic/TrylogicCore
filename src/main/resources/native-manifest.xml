@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+
+    Trylogic Native Components
+
+-->
+<componentPackage>
+
+	<component id="Bootstrap" class="tl.adapters.nativeDisplayList.NativeBootstrap"/>
+
+	<component id="Outlet" class="tl.adapters.nativeDisplayList.Outlet"/>
+
+	<component id="EventMap" class="tl.adapters.nativeDisplayList.EventMap"/>
+
+	<component id="ViewContainer" class="tl.adapters.nativeDisplayList.NativeViewContainerAdapter" />
+
+</componentPackage>

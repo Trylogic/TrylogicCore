@@ -1,0 +1,124 @@
+package tl.view
+{
+
+	import mx.events.PropertyChangeEvent;
+
+	import tl.ioc.IoCHelper;
+
+	[DefaultProperty("subViews")]
+	public class ViewContainer extends AbstractView implements IViewContainerAdapter
+	{
+
+		protected var _subViews : Vector.<IView> = new Vector.<IView>();
+
+		[Bindable(event="propertyChange")]
+		override public function get face() : *
+		{
+			if ( _face == null )
+			{
+				_face = IoCHelper.resolve( IViewContainerAdapter, this );
+				dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "face", null, _face ) );
+			}
+			return _face;
+		}
+
+		public function get numViews() : uint
+		{
+			return _subViews.length;
+		}
+
+		/**
+		 * Inner childs.
+		 *
+		 * @param value
+		 */
+		public function set subViews( value : Vector.<IView> ) : void
+		{
+			if ( value == null )
+			{
+				value = new Vector.<IView>();
+			}
+
+			var element : *;
+
+			for each ( element in _subViews.concat() )
+			{
+				if ( value.indexOf( element ) == -1 )
+				{
+					removeView( element );
+				}
+			}
+
+			for each ( element in value )
+			{
+				if ( _subViews.indexOf( element ) == -1 )
+				{
+					addView( element );
+				}
+				else
+				{
+					setViewIndex( element, -1 );
+				}
+			}
+
+			_subViews = value;
+		}
+
+		public final function get subViews() : Vector.<IView>
+		{
+			return _subViews.concat();
+		}
+
+		public function ViewContainer()
+		{
+		}
+
+		public function addView( element : IView ) : void
+		{
+			if ( _subViews.indexOf( element ) != -1 )
+			{
+				return;
+			}
+
+			element.controller.addViewToContainer( face );
+			element.addEventListener( PropertyChangeEvent.PROPERTY_CHANGE, dispatchEvent, false, 0, true );
+			_subViews.push( element );
+		}
+
+		public function addViewAtIndex( element : IView, index : int ) : void
+		{
+			addView( element );
+
+			setViewIndex( element, index );
+		}
+
+		public function setViewIndex( element : IView, index : int ) : void
+		{
+			if ( _subViews.indexOf( element ) == -1 )
+			{
+				return;
+			}
+
+			// TODO: throw error if element is not our child
+			element.controller.setViewIndexInContainer( face, index );
+		}
+
+		public function removeViewAt( index : int ) : void
+		{
+			removeView( _subViews[index] );
+		}
+
+		public function removeView( element : IView ) : void
+		{
+			if ( _subViews.indexOf( element ) == -1 )
+			{
+				return;
+			}
+
+			element.controller.removeViewFromContainer( face );
+			element.removeEventListener( PropertyChangeEvent.PROPERTY_CHANGE, dispatchEvent );
+
+			_subViews.splice( _subViews.indexOf( element ), 1 );
+		}
+	}
+}

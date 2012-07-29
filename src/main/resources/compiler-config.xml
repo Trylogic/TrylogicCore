@@ -1,0 +1,20 @@
+<flex-config xmlns="http://www.adobe.com/2006/flex-config">
+
+	<include-classes>
+		<class>mx.core.UIComponent</class>
+
+		<class>tl.view.AbstractView</class>
+		<class>tl.view.ViewContainer</class>
+		<class>tl.view.SingleViewContainer</class>
+		<class>tl.viewController.ViewController</class>
+	</include-classes>
+	<compiler>
+
+		<keep-as3-metadata append="true">
+			<name>Outlet</name>
+			<name>Event</name>
+		</keep-as3-metadata>
+
+	</compiler>
+
+</flex-config>
