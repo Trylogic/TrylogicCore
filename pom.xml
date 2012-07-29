@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ru.trylogic</groupId>
-	<artifactId>trylogic-core</artifactId>
+	<artifactId>trylogic-framework</artifactId>
 	<packaging>swc</packaging>
 	<version>2.0.0-beta2-SNAPSHOT</version>
 
