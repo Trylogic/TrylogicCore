@@ -12,4 +12,8 @@
 
 	<component id="ViewContainer" class="tl.view.ViewContainer" />
 
+	<component id="EventMap" class="tl.view.EventMap" />
+
+	<component id="Outlet" class="tl.view.Outlet" />
+
 </componentPackage>

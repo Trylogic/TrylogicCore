@@ -28,3 +28,22 @@ package tl.adapters.starling
 		}
 	}
 }
+
+import tl.adapters.starling.StarlingBootstrap;
+import tl.adapters.starling.StarlingViewContainerAdapter;
+import tl.core.IBootstrap;
+import tl.core.TrylogicApplicationLoader;
+import tl.ioc.IoCHelper;
+
+class StarlingScene extends StarlingViewContainerAdapter
+	{
+
+		public function StarlingScene()
+		{
+			var bootstrap : StarlingBootstrap = IoCHelper.resolve( IBootstrap );
+
+			bootstrap.init( IoCHelper.resolve( TrylogicApplicationLoader ) );
+
+			( bootstrap as StarlingBootstrap ).applicationView.controller.addViewToContainer( this );
+		}
+	}

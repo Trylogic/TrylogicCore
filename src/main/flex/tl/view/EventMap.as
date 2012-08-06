@@ -1,14 +1,12 @@
-package tl.adapters.starling
+package tl.view
 {
 
 	import flash.events.*;
 
 	import mx.core.IMXMLObject;
 
-	import tl.view.IEventMap;
-
-	[Event(name="listener", type="starling.events.Event")]
-	public class EventMap extends EventDispatcher implements IMXMLObject, IEventMap
+	[Event(name="listener", type="Object")]
+	public class EventMap extends EventDispatcher implements IMXMLObject
 	{
 		public var type : String;
 		public var destination : Object;
@@ -25,14 +23,16 @@ package tl.adapters.starling
 
 		public function set source( value : * ) : void
 		{
-			if ( _source != value )
+			if ( _source == value )
 			{
-				unbind();
-				_source = value;
-				if ( _source )
-				{
-					bind();
-				}
+				return;
+			}
+
+			unbind();
+			_source = value;
+			if ( _source )
+			{
+				bind();
 			}
 		}
 
@@ -51,7 +51,7 @@ package tl.adapters.starling
 
 		public function bind() : void
 		{
-			if ( _source != null && !_source.hasEventListener( type ) )
+			if ( _source != null )
 			{
 				_source.addEventListener( type, handler );
 			}
@@ -87,7 +87,7 @@ package tl.adapters.starling
 				{
 					if ( document is IEventDispatcher )
 					{
-						IEventDispatcher( document ).dispatchEvent( Event( destination ) );
+						IEventDispatcher( document ).dispatchEvent( ( destination as Event ) );
 					}
 				}
 			}

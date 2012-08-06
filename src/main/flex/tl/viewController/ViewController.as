@@ -11,7 +11,7 @@
 	import tl.view.IView;
 	import tl.view.IViewContainerAdapter;
 	import tl.utils.describeTypeCached;
-	import tl.view.IOutlet;
+	import tl.view.Outlet;
 
 	use namespace object_proxy;
 
@@ -190,7 +190,7 @@
 		protected function setOutlet( name : String ) : void
 		{
 			var outlet : Object = _viewInstance[name];
-			this[name] = outlet is IOutlet ? IOutlet( outlet ).outletObject : outlet;
+			this[name] = outlet is Outlet ? ( outlet as Outlet ).outletObject : outlet;
 		}
 
 		protected function unsetOutlet( name : String ) : void

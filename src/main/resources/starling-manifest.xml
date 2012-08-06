@@ -8,10 +8,6 @@
 
 	<component id="Bootstrap" class="tl.adapters.starling.StarlingBootstrap"/>
 
-	<component id="Outlet" class="tl.adapters.starling.Outlet"/>
-
-	<component id="EventMap" class="tl.adapters.starling.EventMap"/>
-
 	<component id="ViewContainer" class="tl.adapters.starling.StarlingViewContainerAdapter" />
 
 </componentPackage>

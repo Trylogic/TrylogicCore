@@ -39,7 +39,7 @@ package tl.view
 				value = new Vector.<IView>();
 			}
 
-			var element : *;
+			var element : IView;
 
 			for each ( element in _subViews.concat() )
 			{
@@ -81,7 +81,6 @@ package tl.view
 			}
 
 			element.controller.addViewToContainer( face );
-			element.addEventListener( PropertyChangeEvent.PROPERTY_CHANGE, dispatchEvent, false, 0, true );
 			_subViews.push( element );
 		}
 
@@ -116,7 +115,6 @@ package tl.view
 			}
 
 			element.controller.removeViewFromContainer( face );
-			element.removeEventListener( PropertyChangeEvent.PROPERTY_CHANGE, dispatchEvent );
 
 			_subViews.splice( _subViews.indexOf( element ), 1 );
 		}

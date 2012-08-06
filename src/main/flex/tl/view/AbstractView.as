@@ -21,7 +21,7 @@
 	 */
 	public class AbstractView extends UIComponent implements IMXMLObject, IView
 	{
-		public var eventMaps : Vector.<IEventMap>;
+		public var eventMaps : Vector.<EventMap>;
 
 		public namespace lifecycle = "http://www.trylogic.ru/view/lifecycle";
 
@@ -73,7 +73,7 @@
 
 				if ( eventMaps )
 				{
-					for each( var eventMap : IEventMap in eventMaps )
+					for each( var eventMap : EventMap in eventMaps )
 					{
 						eventMap.bind();
 					}
@@ -110,7 +110,7 @@
 
 		private function destroyController() : void
 		{
-			var eventMap : IEventMap;
+			var eventMap : EventMap;
 			if ( _controller )
 			{
 				if ( eventMaps )
