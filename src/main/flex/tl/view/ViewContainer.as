@@ -1,6 +1,8 @@
 package tl.view
 {
 
+	import flash.geom.Rectangle;
+
 	import mx.events.PropertyChangeEvent;
 
 	import tl.ioc.IoCHelper;
@@ -20,6 +22,16 @@ package tl.view
 				dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "face", null, _face ) );
 			}
 			return _face;
+		}
+
+		public function set viewScrollRect( value : Rectangle ) : void
+		{
+			face.viewScrollRect = value;
+		}
+
+		public function get viewScrollRect() : Rectangle
+		{
+			return face.viewScrollRect;
 		}
 
 		public function get numViews() : uint

@@ -1,6 +1,8 @@
 package tl.view
 {
 
+	import flash.geom.Rectangle;
+
 	public interface IViewContainerAdapter
 	{
 		function addView( view : IView ) : void;
@@ -14,5 +16,9 @@ package tl.view
 		function removeViewAt( index : int ) : void;
 
 		function get numViews() : uint;
+
+		function set viewScrollRect(value : Rectangle) : void;
+
+		function get viewScrollRect() : Rectangle;
 	}
 }

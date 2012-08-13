@@ -14,11 +14,10 @@ package mx.core
 	public class UIComponent extends EventDispatcher implements IStateClient2
 	{
 		[Inject]
-		public var _statesImpl : IStateClient2;
+		protected var _statesImpl : IStateClient2 = IoCHelper.resolve(IStateClient2, this);
 
 		public function UIComponent()
 		{
-			IoCHelper.injectTo( this );
 		}
 
 		public function get currentState() : String

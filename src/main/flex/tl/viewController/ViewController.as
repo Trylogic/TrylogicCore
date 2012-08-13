@@ -33,7 +33,6 @@
 
 		public function ViewController()
 		{
-			IoCHelper.injectTo( this );
 		}
 
 		public function addViewToContainer( container : IViewContainerAdapter ) : void

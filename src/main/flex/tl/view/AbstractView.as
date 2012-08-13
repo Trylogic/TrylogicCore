@@ -58,7 +58,6 @@
 
 		public function AbstractView()
 		{
-			IoCHelper.injectTo( this );
 		}
 
 		public function initController() : void

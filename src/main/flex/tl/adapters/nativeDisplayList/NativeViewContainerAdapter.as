@@ -3,6 +3,7 @@ package tl.adapters.nativeDisplayList
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 
 	import tl.view.IView;
 
@@ -10,6 +11,22 @@ package tl.adapters.nativeDisplayList
 
 	public class NativeViewContainerAdapter extends Sprite implements IViewContainerAdapter
 	{
+
+		public function get numViews() : uint
+		{
+			return numChildren;
+		}
+
+		public function set viewScrollRect( value : Rectangle ) : void
+		{
+			super.scrollRect = value;
+		}
+
+		public function get viewScrollRect() : Rectangle
+		{
+			return super.scrollRect;
+		}
+
 		public function NativeViewContainerAdapter()
 		{
 		}
@@ -32,11 +49,6 @@ package tl.adapters.nativeDisplayList
 		public function removeView( view : IView ) : void
 		{
 			removeChild( view.face as DisplayObject );
-		}
-
-		public function get numViews() : uint
-		{
-			return numChildren;
 		}
 
 		public function removeViewAt( index : int ) : void
