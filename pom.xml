@@ -27,10 +27,18 @@
 				<configuration>
 					<skipTest>true</skipTest>
 					<skipTests>true</skipTests>
-					<loadConfigs>
-						<config>src/main/resources/compiler-config.xml</config>
-					</loadConfigs>
-					<storepass />
+					<includeClasses>
+						<include>mx.core.UIComponent</include>
+						<include>tl.view.AbstractView</include>
+						<include>tl.view.ViewContainer</include>
+						<include>tl.view.SingleViewContainer</include>
+						<include>tl.viewController.ViewController</include>
+					</includeClasses>
+					<keepAs3Metadatas>
+						<name>Outlet</name>
+						<name>Event</name>
+					</keepAs3Metadatas>
+					<storepass/>
 					<namespaces>
 						<namespace>
 							<uri>http://www.trylogic.ru/</uri>

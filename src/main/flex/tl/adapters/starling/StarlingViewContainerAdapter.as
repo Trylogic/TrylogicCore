@@ -19,6 +19,7 @@ package tl.adapters.starling
 	public class StarlingViewContainerAdapter extends Sprite implements IViewContainerAdapter
 	{
 		protected var mClipRect : Rectangle;
+		protected var scissorScrollRect : Rectangle;
 
 		public function get numViews() : uint
 		{
@@ -69,8 +70,8 @@ package tl.adapters.starling
 				}
 
 				support.finishQuadBatch();
-				context.setScissorRectangle( mClipRect );
-
+				updateScissorClipRect();
+				context.setScissorRectangle( scissorScrollRect );
 				super.render( support, alpha );
 
 				support.finishQuadBatch();
@@ -92,9 +93,7 @@ package tl.adapters.starling
 				return null;
 			}
 
-			var globalPoint : Point = localToGlobal( localPoint );
-
-			if ( mClipRect.contains( globalPoint.x * contentScaleX, globalPoint.y * contentScaleY ) )
+			if ( mClipRect.contains( localPoint.x * Starling.contentScaleFactor, localPoint.y * Starling.contentScaleFactor ) )
 			{
 				return super.hitTest( localPoint, forTouch );
 			}
@@ -106,49 +105,35 @@ package tl.adapters.starling
 
 		public function get viewScrollRect() : Rectangle
 		{
-			if ( mClipRect )
-			{
-				var scaleX : Number = contentScaleX;
-				var scaleY : Number = contentScaleY;
-
-				return new Rectangle( mClipRect.x / scaleX, mClipRect.y / scaleY,
-						mClipRect.width / scaleX, mClipRect.height / scaleY );
-			}
-			else
-			{
-				return null;
-			}
+			return mClipRect;
 		}
 
 		public function set viewScrollRect( value : Rectangle ) : void
 		{
-			if ( value )
-			{
-				var scaleX : Number = contentScaleX;
-				var scaleY : Number = contentScaleY;
+			mClipRect = value;
+			updateScissorClipRect();
+		}
 
-				if ( mClipRect == null )
+		protected function updateScissorClipRect() : void
+		{
+			if ( mClipRect )
+			{
+				var scaleX : Number = Starling.contentScaleFactor;
+				var scaleY : Number = Starling.contentScaleFactor;
+				var globalPoint : Point = localToGlobal( new Point( x, y ) );
+				if ( scissorScrollRect == null )
 				{
-					mClipRect = new Rectangle();
+					scissorScrollRect = new Rectangle( (globalPoint.x) * scaleX, (globalPoint.y) * scaleY, mClipRect.width * scaleX, mClipRect.height * scaleY );
 				}
-				mClipRect.setTo( scaleX * value.x, scaleY * value.y, scaleX * value.width, scaleY * value.height );
+				else
+				{
+					scissorScrollRect.setTo( (globalPoint.x) * scaleX, (globalPoint.y) * scaleY, mClipRect.width * scaleX, mClipRect.height * scaleY );
+				}
 			}
 			else
 			{
-				mClipRect = null;
+				scissorScrollRect = null;
 			}
-		}
-
-		private function get contentScaleX() : Number
-		{
-			var currentStarling : Starling = Starling.current;
-			return currentStarling.viewPort.width / currentStarling.stage.stageWidth;
-		}
-
-		private function get contentScaleY() : Number
-		{
-			var currentStarling : Starling = Starling.current;
-			return currentStarling.viewPort.height / currentStarling.stage.stageHeight;
 		}
 
 	}
