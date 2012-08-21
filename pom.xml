@@ -27,6 +27,8 @@
 				<configuration>
 					<skipTest>true</skipTest>
 					<skipTests>true</skipTests>
+					<debug>false</debug>
+					<optimize>true</optimize>
 					<includeClasses>
 						<include>mx.core.UIComponent</include>
 						<include>tl.view.AbstractView</include>
