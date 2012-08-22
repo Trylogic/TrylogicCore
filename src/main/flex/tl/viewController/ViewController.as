@@ -2,12 +2,12 @@
 {
 
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 
 	import mx.events.PropertyChangeEvent;
 
 	import mx.utils.object_proxy;
 
-	import tl.ioc.IoCHelper;
 	import tl.view.IView;
 	import tl.view.IViewContainerAdapter;
 	import tl.utils.describeTypeCached;
@@ -16,7 +16,7 @@
 	use namespace object_proxy;
 
 	[Outlet]
-	public class ViewController implements IVIewController
+	public class ViewController extends EventDispatcher implements IVIewController
 	{
 		{
 			if ( describeTypeCached( ViewController )..metadata.( @name == "Outlet" ).length() == 0 )
@@ -84,6 +84,7 @@
 					{
 						unsetOutlet( outletName );
 					}
+
 					for ( var eventName : String in _viewEventHandlers )
 					{
 						unsetHandler( eventName );
@@ -146,7 +147,7 @@
 			return _viewInstance != null;
 		}
 
-		protected final function get view() : IView
+		protected function get view() : IView
 		{
 			return _viewInstance;
 		}
