@@ -27,9 +27,9 @@
 
 		public namespace lifecycle = "http://www.trylogic.ru/viewController/lifecycle";
 
-		private var _viewInstance : IView;
-		private var _viewEventHandlers : Array;
-		private var _viewOutlets : Array;
+		protected var _viewInstance : IView;
+		protected var _viewEventHandlers : Array;
+		protected var _viewOutlets : Array;
 
 		public function ViewController()
 		{
