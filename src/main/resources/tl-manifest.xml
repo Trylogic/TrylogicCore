@@ -8,8 +8,6 @@
 
 	<component id="Service" class="tl.service.Service"/>
 
-	<component id="SingleViewContainer" class="tl.view.SingleViewContainer" />
-
 	<component id="ViewContainer" class="tl.view.ViewContainer" />
 
 	<component id="EventMap" class="tl.view.EventMap" />

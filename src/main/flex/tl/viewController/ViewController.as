@@ -14,17 +14,10 @@
 	import tl.view.Outlet;
 
 	use namespace object_proxy;
+	use namespace outlet;
 
-	[Outlet]
 	public class ViewController extends EventDispatcher implements IVIewController
 	{
-		{
-			if ( describeTypeCached( ViewController )..metadata.( @name == "Outlet" ).length() == 0 )
-			{
-				throw new Error( "Please add -keep-as3-metadata+=Outlet to flex compiler arguments!" )
-			}
-		}
-
 		public namespace lifecycle = "http://www.trylogic.ru/viewController/lifecycle";
 
 		protected var _viewInstance : IView;
@@ -154,11 +147,12 @@
 
 		private function processView() : void
 		{
+			const myTypeDescription : XML = describeTypeCached( this );
 			if ( _viewEventHandlers == null )
 			{
 				_viewEventHandlers = [];
 
-				describeTypeCached( this ).method.( valueOf().metadata.( @name == "Event" ).length() > 0 ).(
+				myTypeDescription.method.( valueOf().metadata.( @name == "Event" ).length() > 0 ).(
 						registerListener( metadata.arg.( @key == "name" ).@value.toString(), String( @name ) )
 						);
 			}
@@ -167,11 +161,11 @@
 			{
 				_viewOutlets = [];
 
-				describeTypeCached( this ).variable.( valueOf().metadata.( @name == "Outlet" ).length() > 0 ).(
+				myTypeDescription.variable.( (valueOf()["@uri"] == outlet) ).(
 						_viewOutlets.push( @name.toString() )
 						);
 
-				describeTypeCached( this ).accessor.(@access != "readonly").( valueOf().metadata.( @name == "Outlet" ).length() > 0 ).(
+				myTypeDescription.accessor.(@access != "readonly").( (valueOf()["@uri"] == outlet) ).(
 						_viewOutlets.push( @name.toString() )
 						);
 			}
