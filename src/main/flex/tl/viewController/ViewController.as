@@ -18,11 +18,13 @@
 
 	public class ViewController extends EventDispatcher implements IVIewController
 	{
-		public namespace lifecycle = "http://www.trylogic.ru/viewController/lifecycle";
+		protected namespace lifecycle = "http://www.trylogic.ru/viewController/lifecycle";
+		protected namespace viewControllerInternal = "http://www.trylogic.ru/viewController/internal";
+		use namespace viewControllerInternal;
 
-		protected var _viewInstance : IView;
-		protected var _viewEventHandlers : Array;
-		protected var _viewOutlets : Array;
+		viewControllerInternal var _viewInstance : IView;
+		viewControllerInternal var _viewEventHandlers : Array;
+		viewControllerInternal var _viewOutlets : Array;
 
 		public function ViewController()
 		{
@@ -135,17 +137,17 @@
 		{
 		}
 
-		protected final function get viewIsLoaded() : Boolean
-		{
-			return _viewInstance != null;
-		}
-
 		protected function get view() : IView
 		{
 			return _viewInstance;
 		}
 
-		private function processView() : void
+		viewControllerInternal function get viewIsLoaded() : Boolean
+		{
+			return _viewInstance != null;
+		}
+
+		viewControllerInternal function processView() : void
 		{
 			const myTypeDescription : XML = describeTypeCached( this );
 			if ( _viewEventHandlers == null )
@@ -181,28 +183,28 @@
 			}
 		}
 
-		protected function setOutlet( name : String ) : void
+		viewControllerInternal function setOutlet( name : String ) : void
 		{
 			var outlet : Object = _viewInstance[name];
 			this[name] = outlet is Outlet ? ( outlet as Outlet ).outletObject : outlet;
 		}
 
-		protected function unsetOutlet( name : String ) : void
+		viewControllerInternal function unsetOutlet( name : String ) : void
 		{
 			this[name] = null;
 		}
 
-		protected function setHandler( name : String ) : void
+		viewControllerInternal function setHandler( name : String ) : void
 		{
 			_viewInstance.addEventListener( name, viewEventHandler );
 		}
 
-		protected function unsetHandler( name : String ) : void
+		viewControllerInternal function unsetHandler( name : String ) : void
 		{
 			_viewInstance.removeEventListener( name, viewEventHandler );
 		}
 
-		private function registerListener( eventName : String, listener : String ) : void
+		viewControllerInternal function registerListener( eventName : String, listener : String ) : void
 		{
 			if ( _viewEventHandlers[ eventName ] == null )
 			{
@@ -212,7 +214,7 @@
 			_viewEventHandlers[ eventName ].push( listener );
 		}
 
-		private function viewEventHandler( e : Event ) : void
+		viewControllerInternal function viewEventHandler( e : Event ) : void
 		{
 			var methods : Array = _viewEventHandlers[e.type];
 			if ( methods != null )

@@ -6,7 +6,7 @@
 	import mx.core.IStateClient2;
 
 	import tl.factory.ConstructorFactory;
-	import tl.factory.ServiceFactory;
+	import tl.factory.SingletonFactory;
 	import tl.ioc.*;
 	import tl.ioc.mxml.IAssociate;
 	import tl.service.IService;
@@ -45,7 +45,7 @@
 
 			for each( var service : IService in value )
 			{
-				ServiceFactory.registerService( Object( service ).constructor, service );
+				SingletonFactory.registerImplementation( Object( service ).constructor, service );
 			}
 
 			_services = value;

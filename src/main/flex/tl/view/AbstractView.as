@@ -6,7 +6,6 @@
 	import mx.core.UIComponent;
 	import mx.events.PropertyChangeEvent;
 
-	import tl.ioc.IoCHelper;
 	import tl.viewController.ViewController;
 	import tl.viewController.IVIewController;
 
@@ -28,7 +27,7 @@
 
 		protected var _face : *;
 
-		private var _controllerClass : Class;
+		private var _controllerClass : Class = ViewController;
 		private var _controller : IVIewController;
 
 		[Bindable(event="propertyChange")]
@@ -61,7 +60,7 @@
 		{
 		}
 
-		public function initController() : void
+		protected function initController() : void
 		{
 			if ( _controllerClass == null || !(_controller is _controllerClass) )
 			{
