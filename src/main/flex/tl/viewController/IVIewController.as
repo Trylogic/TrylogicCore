@@ -4,7 +4,7 @@
 	import flash.display.DisplayObjectContainer;
 
 	import tl.view.IView;
-	import tl.view.IViewContainerAdapter;
+	import tl.adapters.IViewContainerAdapter;
 
 	public interface IVIewController
 	{

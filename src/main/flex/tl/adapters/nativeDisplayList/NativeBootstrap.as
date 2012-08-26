@@ -3,7 +3,7 @@ package tl.adapters.nativeDisplayList
 
 	import tl.core.*;
 	import tl.ioc.IoCHelper;
-	import tl.view.IViewContainerAdapter;
+	import tl.adapters.IViewContainerAdapter;
 
 	public class NativeBootstrap extends AbstractBootstrap
 	{

@@ -4,6 +4,7 @@
 	import mx.core.IMXMLObject;
 
 	import mx.core.UIComponent;
+	import mx.events.PropertyChangeEvent;
 
 	import tl.ioc.IoCHelper;
 	import tl.viewController.ViewController;
@@ -33,7 +34,7 @@
 		[Bindable(event="propertyChange")]
 		public function get face() : *
 		{
-			return _face;
+			return _face || internalLazyCreateFace();
 		}
 
 		public function get controllerClass() : Class
@@ -105,6 +106,18 @@
 		internal function internalDestroy() : void
 		{
 
+		}
+
+		protected function lazyCreateFace() : *
+		{
+
+		}
+
+		private function internalLazyCreateFace() : *
+		{
+			var resultFace : * = lazyCreateFace();
+			dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "face", null, resultFace));
+			return resultFace;
 		}
 
 		private function destroyController() : void

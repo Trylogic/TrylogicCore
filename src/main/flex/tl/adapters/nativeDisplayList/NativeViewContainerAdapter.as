@@ -7,7 +7,7 @@ package tl.adapters.nativeDisplayList
 
 	import tl.view.IView;
 
-	import tl.view.IViewContainerAdapter;
+	import tl.adapters.IViewContainerAdapter;
 
 	public class NativeViewContainerAdapter extends Sprite implements IViewContainerAdapter
 	{

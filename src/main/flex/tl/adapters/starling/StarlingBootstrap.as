@@ -3,7 +3,7 @@ package tl.adapters.starling
 
 	import tl.core.AbstractBootstrap;
 	import tl.ioc.IoCHelper;
-	import tl.view.IViewContainerAdapter;
+	import tl.adapters.IViewContainerAdapter;
 
 	[Frame(factoryClass="tl.adapters.starling.StarlingApplicationLoader")]
 	public class StarlingBootstrap extends AbstractBootstrap

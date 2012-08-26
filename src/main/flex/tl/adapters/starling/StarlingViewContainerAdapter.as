@@ -14,7 +14,7 @@ package tl.adapters.starling
 	import starling.errors.MissingContextError;
 
 	import tl.view.IView;
-	import tl.view.IViewContainerAdapter;
+	import tl.adapters.IViewContainerAdapter;
 
 	public class StarlingViewContainerAdapter extends Sprite implements IViewContainerAdapter
 	{

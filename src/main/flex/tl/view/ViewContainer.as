@@ -5,6 +5,8 @@ package tl.view
 
 	import mx.events.PropertyChangeEvent;
 
+	import tl.adapters.IViewContainerAdapter;
+
 	import tl.ioc.IoCHelper;
 
 	[DefaultProperty("subViews")]

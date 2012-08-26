@@ -9,7 +9,7 @@
 	import mx.utils.object_proxy;
 
 	import tl.view.IView;
-	import tl.view.IViewContainerAdapter;
+	import tl.adapters.IViewContainerAdapter;
 	import tl.utils.describeTypeCached;
 	import tl.view.Outlet;
 

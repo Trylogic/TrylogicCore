@@ -1,5 +1,6 @@
-package tl.view
+package tl.adapters
 {
+	import tl.view.*;
 
 	import flash.geom.Rectangle;
 
