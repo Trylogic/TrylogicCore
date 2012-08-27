@@ -109,13 +109,13 @@
 
 		protected function lazyCreateFace() : *
 		{
-
+			return null;
 		}
 
 		private function internalLazyCreateFace() : *
 		{
 			var resultFace : * = lazyCreateFace();
-			dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "face", null, resultFace));
+			dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "face", null, resultFace ) );
 			return resultFace;
 		}
 
