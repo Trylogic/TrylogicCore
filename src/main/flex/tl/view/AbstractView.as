@@ -33,7 +33,7 @@
 		[Bindable(event="propertyChange")]
 		public function get face() : *
 		{
-			return _face || internalLazyCreateFace();
+			return _face ||= internalLazyCreateFace();
 		}
 
 		public function get controllerClass() : Class
