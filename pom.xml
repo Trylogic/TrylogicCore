@@ -37,8 +37,9 @@
 					</includeClasses>
 					<keepAs3Metadatas>
 						<name>Event</name>
+						<name>SkinPart</name>
 					</keepAs3Metadatas>
-					<storepass/>
+					<storepass />
 					<namespaces>
 						<namespace>
 							<uri>http://www.trylogic.ru/</uri>

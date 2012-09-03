@@ -5,12 +5,11 @@
 	import flash.events.EventDispatcher;
 
 	import mx.events.PropertyChangeEvent;
-
 	import mx.utils.object_proxy;
 
-	import tl.view.IView;
 	import tl.adapters.IViewContainerAdapter;
 	import tl.utils.describeTypeCached;
+	import tl.view.IView;
 	import tl.view.Outlet;
 
 	use namespace object_proxy;
@@ -20,6 +19,7 @@
 	{
 		protected namespace lifecycle = "http://www.trylogic.ru/viewController/lifecycle";
 		protected namespace viewControllerInternal = "http://www.trylogic.ru/viewController/internal";
+
 		use namespace viewControllerInternal;
 
 		viewControllerInternal var _viewInstance : IView;
@@ -71,27 +71,19 @@
 
 		public function initWithView( newView : IView ) : void
 		{
-			if ( newView == null )
+			if ( newView == _viewInstance )
 			{
-				if ( _viewInstance != null )
-				{
-					for each( var outletName : String in _viewOutlets )
-					{
-						unsetOutlet( outletName );
-					}
-
-					for ( var eventName : String in _viewEventHandlers )
-					{
-						unsetHandler( eventName );
-					}
-
-					_viewInstance = null;
-				}
+				return;
 			}
-			else
+
+			uninstallView();
+			lifecycle::viewUnloaded();
+
+			_viewInstance = newView;
+
+			if ( _viewInstance )
 			{
-				_viewInstance = newView;
-				processView();
+				installView();
 
 				internalViewLoaded();
 				lifecycle::viewLoaded();
@@ -125,15 +117,19 @@
 		{
 		}
 
+		lifecycle function viewUnloaded() : void
+		{
+		}
+
 		lifecycle function destroy() : void
 		{
 		}
 
-		internal function internalViewLoaded() : void
+		viewControllerInternal function internalViewLoaded() : void
 		{
 		}
 
-		internal function internalDestroy() : void
+		viewControllerInternal function internalDestroy() : void
 		{
 		}
 
@@ -147,7 +143,7 @@
 			return _viewInstance != null;
 		}
 
-		viewControllerInternal function processView() : void
+		viewControllerInternal function installView() : void
 		{
 			const myTypeDescription : XML = describeTypeCached( this );
 			if ( _viewEventHandlers == null )
@@ -163,13 +159,10 @@
 			{
 				_viewOutlets = [];
 
-				myTypeDescription.variable.( (valueOf()["@uri"] == outlet) ).(
+				( myTypeDescription.variable + myTypeDescription.accessor.( @access != "readonly") ).( (valueOf()["@uri"] == outlet) ).(
 						_viewOutlets.push( @name.toString() )
 						);
 
-				myTypeDescription.accessor.(@access != "readonly").( (valueOf()["@uri"] == outlet) ).(
-						_viewOutlets.push( @name.toString() )
-						);
 			}
 
 			for each( var outletName : String in _viewOutlets )
@@ -180,6 +173,23 @@
 			for ( var eventName : String in _viewEventHandlers )
 			{
 				setHandler( eventName );
+			}
+		}
+
+		viewControllerInternal function uninstallView() : void
+		{
+			for each( var outletName : String in _viewOutlets )
+			{
+				unsetOutlet( outletName );
+			}
+
+			if ( _viewInstance != null )
+			{
+
+				for ( var eventName : String in _viewEventHandlers )
+				{
+					unsetHandler( eventName );
+				}
 			}
 		}
 
