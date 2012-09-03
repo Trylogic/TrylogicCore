@@ -60,7 +60,7 @@
 		}
 
 		[Event(name="removedFromStage")]
-		public final function viewRemovedFromStage() : void
+		viewControllerInternal function viewRemovedFromStage() : void
 		{
 			_viewInstance.destroy();
 
@@ -97,7 +97,7 @@
 		}
 
 		[Event(name="propertyChange")]
-		public function onPropertyChange( event : PropertyChangeEvent ) : void
+		viewControllerInternal function onPropertyChange( event : PropertyChangeEvent ) : void
 		{
 			if ( _viewOutlets && _viewOutlets.indexOf( event.property.toString() ) != -1 )
 			{
@@ -150,19 +150,27 @@
 			{
 				_viewEventHandlers = [];
 
-				myTypeDescription.method.( valueOf().metadata.( @name == "Event" ).length() > 0 ).(
-						registerListener( metadata.arg.( @key == "name" ).@value.toString(), String( @name ) )
-						);
+				if ( Object( this ).constructor.prototype != ViewController.prototype )
+				{
+					myTypeDescription.method.
+							( valueOf().metadata.( @name == "Event" ).length() > 0 ).
+							( registerListener( metadata.arg.( @key == "name" ).@value.toString(), String( @name ) ) );
+				}
+
+				registerListener( "propertyChange", "onPropertyChange" );
+				registerListener( "removedFromStage", "viewRemovedFromStage" );
 			}
 
 			if ( _viewOutlets == null )
 			{
 				_viewOutlets = [];
 
-				( myTypeDescription.variable + myTypeDescription.accessor.( @access != "readonly") ).( (valueOf()["@uri"] == outlet) ).(
-						_viewOutlets.push( @name.toString() )
-						);
-
+				if ( Object( this ).constructor.prototype != ViewController.prototype )
+				{
+					( myTypeDescription.variable + myTypeDescription.accessor.( @access != "readonly" ) ).
+							( valueOf()["@uri"] == outlet ).
+							( _viewOutlets.push( @name.toString() ) );
+				}
 			}
 
 			for each( var outletName : String in _viewOutlets )
