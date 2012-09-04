@@ -13,7 +13,7 @@
 	import tl.view.Outlet;
 
 	use namespace object_proxy;
-	use namespace outlet;
+	use namespace event;
 
 	public class ViewController extends EventDispatcher implements IVIewController
 	{
@@ -59,16 +59,6 @@
 			}
 		}
 
-		[Event(name="removedFromStage")]
-		viewControllerInternal function viewRemovedFromStage() : void
-		{
-			_viewInstance.destroy();
-
-			initWithView( null );
-
-			destroy();
-		}
-
 		public function initWithView( newView : IView ) : void
 		{
 			if ( newView == _viewInstance )
@@ -96,12 +86,20 @@
 			internalDestroy();
 		}
 
-		[Event(name="propertyChange")]
-		viewControllerInternal function onPropertyChange( event : PropertyChangeEvent ) : void
+		viewControllerInternal function removedFromStage() : void
 		{
-			if ( _viewOutlets && _viewOutlets.indexOf( event.property.toString() ) != -1 )
+			_viewInstance.destroy();
+
+			initWithView( null );
+
+			destroy();
+		}
+
+		viewControllerInternal function propertyChange( e : PropertyChangeEvent ) : void
+		{
+			if ( _viewOutlets && _viewOutlets.indexOf( e.property.toString() ) != -1 )
 			{
-				setOutlet( String( event.property ) );
+				setOutlet( String( e.property ) );
 			}
 		}
 
@@ -152,13 +150,19 @@
 
 				if ( Object( this ).constructor.prototype != ViewController.prototype )
 				{
+					/*
+					 myTypeDescription.method.
+					 ( valueOf().metadata.( @name == "Event" ).length() > 0 ).
+					 ( registerListener( metadata.arg.( @key == "name" ).@value.toString(), String( @name ) ) );
+					 */
+
 					myTypeDescription.method.
-							( valueOf().metadata.( @name == "Event" ).length() > 0 ).
-							( registerListener( metadata.arg.( @key == "name" ).@value.toString(), String( @name ) ) );
+							( valueOf()["@uri"] == event ).
+							( registerListener( String( @name ) ) );
 				}
 
-				registerListener( "propertyChange", "onPropertyChange" );
-				registerListener( "removedFromStage", "viewRemovedFromStage" );
+				registerListener( "propertyChange" );
+				registerListener( "removedFromStage" );
 			}
 
 			if ( _viewOutlets == null )
@@ -203,13 +207,13 @@
 
 		viewControllerInternal function setOutlet( name : String ) : void
 		{
-			var outlet : Object = _viewInstance[name];
-			this[name] = outlet is Outlet ? ( outlet as Outlet ).outletObject : outlet;
+			var outletObject : Object = _viewInstance[name];
+			this.outlet::[name] = outletObject is Outlet ? ( outletObject as Outlet ).outletObject : outletObject;
 		}
 
 		viewControllerInternal function unsetOutlet( name : String ) : void
 		{
-			this[name] = null;
+			this.outlet::[name] = null;
 		}
 
 		viewControllerInternal function setHandler( name : String ) : void
@@ -222,30 +226,15 @@
 			_viewInstance.removeEventListener( name, viewEventHandler );
 		}
 
-		viewControllerInternal function registerListener( eventName : String, listener : String ) : void
+		viewControllerInternal function registerListener( eventName : String ) : void
 		{
-			if ( _viewEventHandlers[ eventName ] == null )
-			{
-				_viewEventHandlers[ eventName ] = [];
-			}
-
-			_viewEventHandlers[ eventName ].push( listener );
+			_viewEventHandlers[ eventName ] = true;
 		}
 
 		viewControllerInternal function viewEventHandler( e : Event ) : void
 		{
-			var methods : Array = _viewEventHandlers[e.type];
-			if ( methods != null )
-			{
-				for each( var methodName : String in methods )
-				{
-					var destFunc : Function = this[methodName] as Function;
-					if ( destFunc != null )
-					{
-						destFunc.apply( null, destFunc.length == 1 ? [e] : null );
-					}
-				}
-			}
+			var destFunc : Function = this[e.type] as Function;
+			destFunc.apply( null, destFunc.length == 1 ? [e] : null );
 		}
 	}
 
