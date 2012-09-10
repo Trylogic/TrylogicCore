@@ -21,29 +21,24 @@
 	 */
 	public class AbstractView extends UIComponent implements IMXMLObject, IView
 	{
-		public var eventMaps : Vector.<EventMap>;
-
 		public namespace lifecycle = "http://www.trylogic.ru/view/lifecycle";
 
-		protected var _face : *;
+		public var eventMaps : Vector.<EventMap>;
 
-		private var _controllerClass : Class = ViewController;
+		public var controllerClass : Class = ViewController;
+
+		protected var _face : *;
 		private var _controller : IVIewController;
 
 		[Bindable(event="propertyChange")]
 		public function get face() : *
 		{
-			return _face ||= internalLazyCreateFace();
-		}
-
-		public function get controllerClass() : Class
-		{
-			return _controllerClass;
-		}
-
-		public function set controllerClass( value : Class ) : void
-		{
-			_controllerClass = value;
+			if ( _face == null )
+			{
+				_face = internalLazyCreateFace();
+				lifecycle::init();
+			}
+			return _face;
 		}
 
 		public function get controller() : IVIewController
@@ -62,11 +57,11 @@
 
 		protected function initController() : void
 		{
-			if ( _controllerClass == null || !(_controller is _controllerClass) )
+			if ( controllerClass == null || !(_controller is controllerClass) )
 			{
 				destroyController();
 
-				_controller = _controllerClass == null ? (new ViewController()) : (new _controllerClass());
+				_controller = controllerClass == null ? (new ViewController()) : (new controllerClass());
 
 				_controller.initWithView( this );
 
@@ -83,8 +78,6 @@
 		public function initialized( document : Object, id : String ) : void
 		{
 			initController();
-
-			lifecycle::init();
 		}
 
 		/**

@@ -15,17 +15,6 @@ package tl.view
 
 		protected var _subViews : Vector.<IView> = new Vector.<IView>();
 
-		[Bindable(event="propertyChange")]
-		override public function get face() : *
-		{
-			if ( _face == null )
-			{
-				_face = IoCHelper.resolve( IViewContainerAdapter, this );
-				dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "face", null, _face ) );
-			}
-			return _face;
-		}
-
 		public function set viewScrollRect( value : Rectangle ) : void
 		{
 			face.viewScrollRect = value;
@@ -131,6 +120,11 @@ package tl.view
 			element.controller.removeViewFromContainer( face );
 
 			_subViews.splice( _subViews.indexOf( element ), 1 );
+		}
+
+		override protected function lazyCreateFace() : *
+		{
+			return IoCHelper.resolve( IViewContainerAdapter, this );
 		}
 	}
 }
