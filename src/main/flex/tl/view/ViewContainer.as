@@ -83,7 +83,11 @@ package tl.view
 				return;
 			}
 
-			element.controller.addViewToContainer( face );
+			if ( _face != null )
+			{
+				element.controller.addViewToContainer( face );
+			}
+
 			_subViews.push( element );
 		}
 
@@ -102,7 +106,10 @@ package tl.view
 			}
 
 			// TODO: throw error if element is not our child
-			element.controller.setViewIndexInContainer( face, index );
+			if ( _face != null )
+			{
+				element.controller.setViewIndexInContainer( face, index );
+			}
 		}
 
 		public function removeViewAt( index : int ) : void
@@ -117,14 +124,22 @@ package tl.view
 				return;
 			}
 
-			element.controller.removeViewFromContainer( face );
+			if ( _face != null )
+			{
+				element.controller.removeViewFromContainer( face );
+			}
 
 			_subViews.splice( _subViews.indexOf( element ), 1 );
 		}
 
 		override protected function lazyCreateFace() : *
 		{
-			return IoCHelper.resolve( IViewContainerAdapter, this );
+			var result : * = IoCHelper.resolve( IViewContainerAdapter, this );
+			for each( var element : IView in _subViews )
+			{
+				element.controller.addViewToContainer( result );
+			}
+			return result;
 		}
 	}
 }

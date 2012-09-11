@@ -35,8 +35,9 @@
 		{
 			if ( _face == null )
 			{
-				_face = internalLazyCreateFace();
+				_face = lazyCreateFace();
 				lifecycle::init();
+				dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "face", null, _face ) );
 			}
 			return _face;
 		}
@@ -103,13 +104,6 @@
 		protected function lazyCreateFace() : *
 		{
 			return null;
-		}
-
-		private function internalLazyCreateFace() : *
-		{
-			var resultFace : * = lazyCreateFace();
-			dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "face", null, resultFace ) );
-			return resultFace;
 		}
 
 		private function destroyController() : void
