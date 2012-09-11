@@ -1,8 +1,6 @@
 ﻿package tl.view
 {
 
-	import mx.core.IMXMLObject;
-
 	import mx.core.UIComponent;
 	import mx.events.PropertyChangeEvent;
 
@@ -19,16 +17,19 @@
 	 * @see IViewController
 	 *
 	 */
-	public class AbstractView extends UIComponent implements IMXMLObject, IView
+	public class AbstractView extends UIComponent implements IView
 	{
 		public namespace lifecycle = "http://www.trylogic.ru/view/lifecycle";
+		public namespace viewInternal = "http://www.trylogic.ru/view/internal";
+
+		use namespace viewInternal;
 
 		public var eventMaps : Vector.<EventMap>;
 
 		public var controllerClass : Class = ViewController;
 
 		protected var _face : *;
-		private var _controller : IVIewController;
+		viewInternal var _controller : IVIewController;
 
 		[Bindable(event="propertyChange")]
 		public function get face() : *
@@ -56,7 +57,21 @@
 		{
 		}
 
-		protected function initController() : void
+		/**
+		 * Destroy a IView.
+		 *
+		 * @see internalDispose
+		 *
+		 */
+		public final function destroy() : void
+		{
+			viewInternal::destroy();
+			lifecycle::destroy();
+
+			destroyController();
+		}
+
+		viewInternal function initController() : void
 		{
 			if ( controllerClass == null || !(_controller is controllerClass) )
 			{
@@ -76,37 +91,17 @@
 			}
 		}
 
-		public function initialized( document : Object, id : String ) : void
-		{
-			initController();
-		}
-
-		/**
-		 * Destroy a IView.
-		 *
-		 * @see internalDispose
-		 *
-		 */
-		public final function destroy() : void
-		{
-			internalDestroy();
-			lifecycle::destroy();
-
-
-			destroyController();
-		}
-
-		internal function internalDestroy() : void
-		{
-
-		}
-
 		protected function lazyCreateFace() : *
 		{
 			return null;
 		}
 
-		private function destroyController() : void
+		viewInternal function destroy() : void
+		{
+
+		}
+
+		viewInternal function destroyController() : void
 		{
 			var eventMap : EventMap;
 			if ( _controller )

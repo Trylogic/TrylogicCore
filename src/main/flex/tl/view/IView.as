@@ -1,7 +1,6 @@
 package tl.view
 {
 
-	import flash.display.Stage;
 	import flash.events.IEventDispatcher;
 
 	import mx.core.IStateClient2;
