@@ -3,8 +3,6 @@ package tl.view
 
 	import flash.geom.Rectangle;
 
-	import mx.events.PropertyChangeEvent;
-
 	import tl.adapters.IViewContainerAdapter;
 
 	import tl.ioc.IoCHelper;

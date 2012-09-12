@@ -1,8 +1,13 @@
 ﻿package tl.view
 {
 
-	import mx.core.UIComponent;
+	import flash.events.EventDispatcher;
+
+	import mx.core.IStateClient2;
+
 	import mx.events.PropertyChangeEvent;
+
+	import tl.ioc.IoCHelper;
 
 	import tl.viewController.ViewController;
 	import tl.viewController.IVIewController;
@@ -17,7 +22,7 @@
 	 * @see IViewController
 	 *
 	 */
-	public class AbstractView extends UIComponent implements IView
+	public class AbstractView extends EventDispatcher implements IView
 	{
 		public namespace lifecycle = "http://www.trylogic.ru/view/lifecycle";
 		public namespace viewInternal = "http://www.trylogic.ru/view/internal";
@@ -27,6 +32,9 @@
 		public var eventMaps : Vector.<EventMap>;
 
 		public var controllerClass : Class = ViewController;
+
+		[Inject]
+		protected var _statesImpl : IStateClient2 = IoCHelper.resolve( IStateClient2, this );
 
 		protected var _face : *;
 		viewInternal var _controller : IVIewController;
@@ -134,6 +142,62 @@
 		lifecycle function destroy() : void
 		{
 
+		}
+
+		public function get currentState() : String
+		{
+			return _statesImpl.currentState;
+		}
+
+		[Bindable(event="propertyChange")]
+		public function set currentState( value : String ) : void
+		{
+			var oldValue : String = _statesImpl.currentState;
+			if ( value == oldValue )
+			{
+				return;
+			}
+
+			_statesImpl.currentState = value;
+
+			dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "currentState", oldValue, value ) );
+		}
+
+		[ArrayElementType("mx.states.State")]
+		public function get states() : Array
+		{
+			return _statesImpl.states;
+		}
+
+		public function set states( value : Array ) : void
+		{
+			if ( value == _statesImpl.states )
+			{
+				return;
+			}
+
+			_statesImpl.states = value;
+		}
+
+		[ArrayElementType("mx.states.Transition")]
+		public function get transitions() : Array
+		{
+			return _statesImpl.transitions;
+		}
+
+		public function set transitions( value : Array ) : void
+		{
+			if ( value == _statesImpl.transitions )
+			{
+				return;
+			}
+
+			_statesImpl.transitions = value;
+		}
+
+		public function hasState( stateName : String ) : Boolean
+		{
+			return _statesImpl.hasState( stateName );
 		}
 	}
 }
