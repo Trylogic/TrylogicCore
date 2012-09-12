@@ -20,7 +20,7 @@
 	 * @see IViewController
 	 *
 	 */
-	public class AbstractView extends EventDispatcher implements IView
+	public class AbstractView extends EventDispatcher implements IView, IStateClient2
 	{
 		public namespace lifecycle = "http://www.trylogic.ru/view/lifecycle";
 		public namespace viewInternal = "http://www.trylogic.ru/view/internal";
