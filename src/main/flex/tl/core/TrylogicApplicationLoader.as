@@ -50,7 +50,7 @@ package tl.core
 
 		protected function loadApplication() : void
 		{
-			( IoCHelper.resolve( IBootstrap ) as IBootstrap ).init( this );
+			( IoCHelper.resolve( IBootstrap, this ) as IBootstrap ).init( this );
 		}
 
 		public function get allowDomainsInNewRSLs() : Boolean

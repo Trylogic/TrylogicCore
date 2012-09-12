@@ -19,7 +19,7 @@ package tl.adapters.nativeDisplayList
 		{
 			super.init( applicationLoader );
 
-			applicationView.controller.addViewToContainer( (applicationLoader.addChild( IoCHelper.resolve( IViewContainerAdapter ) ) as IViewContainerAdapter ) );
+			applicationView.controller.addViewToContainer( (applicationLoader.addChild( IoCHelper.resolve( IViewContainerAdapter, this ) ) as IViewContainerAdapter ) );
 		}
 	}
 }
