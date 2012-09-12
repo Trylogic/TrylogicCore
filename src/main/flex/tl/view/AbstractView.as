@@ -4,13 +4,11 @@
 	import flash.events.EventDispatcher;
 
 	import mx.core.IStateClient2;
-
 	import mx.events.PropertyChangeEvent;
 
 	import tl.ioc.IoCHelper;
-
-	import tl.viewController.ViewController;
 	import tl.viewController.IVIewController;
+	import tl.viewController.ViewController;
 
 	/**
 	 * Basic IView implementation
@@ -36,11 +34,12 @@
 		[Inject]
 		protected var _statesImpl : IStateClient2 = IoCHelper.resolve( IStateClient2, this );
 
-		protected var _face : *;
+		protected var _face : IDisplayObject;
+
 		viewInternal var _controller : IVIewController;
 
 		[Bindable(event="propertyChange")]
-		public function get face() : *
+		public function get face() : IDisplayObject
 		{
 			if ( _face == null )
 			{
@@ -99,7 +98,7 @@
 			}
 		}
 
-		protected function lazyCreateFace() : *
+		protected function lazyCreateFace() : IDisplayObject
 		{
 			return null;
 		}

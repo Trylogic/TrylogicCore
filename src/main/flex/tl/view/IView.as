@@ -15,7 +15,7 @@ package tl.view
 	{
 		function get controller() : IVIewController;
 
-		function get face() : *;
+		function get face() : IDisplayObject;
 
 		/**
 		 * Destroy this IView instance for future GC. After destroy this instance will not be used.

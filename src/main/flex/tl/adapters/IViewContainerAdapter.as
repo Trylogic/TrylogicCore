@@ -3,9 +3,11 @@ package tl.adapters
 
 	import flash.geom.Rectangle;
 
+	import tl.view.IDisplayObject;
+
 	import tl.view.IView;
 
-	public interface IViewContainerAdapter
+	public interface IViewContainerAdapter extends IDisplayObject
 	{
 		function addView( view : IView ) : void;
 

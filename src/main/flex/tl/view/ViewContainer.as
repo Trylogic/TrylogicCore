@@ -4,23 +4,22 @@ package tl.view
 	import flash.geom.Rectangle;
 
 	import tl.adapters.IViewContainerAdapter;
-
 	import tl.ioc.IoCHelper;
 
 	[DefaultProperty("subViews")]
-	public class ViewContainer extends AbstractView implements IViewContainerAdapter
+	public class ViewContainer extends AbstractView
 	{
 
 		protected var _subViews : Vector.<IView> = new Vector.<IView>();
 
 		public function set viewScrollRect( value : Rectangle ) : void
 		{
-			face.viewScrollRect = value;
+			(face as IViewContainerAdapter).viewScrollRect = value;
 		}
 
 		public function get viewScrollRect() : Rectangle
 		{
-			return face.viewScrollRect;
+			return (face as IViewContainerAdapter).viewScrollRect;
 		}
 
 		public function get numViews() : uint
@@ -83,7 +82,7 @@ package tl.view
 
 			if ( _face != null )
 			{
-				element.controller.addViewToContainer( face );
+				element.controller.addViewToContainer( (face as IViewContainerAdapter) );
 			}
 
 			_subViews.push( element );
@@ -106,7 +105,7 @@ package tl.view
 			// TODO: throw error if element is not our child
 			if ( _face != null )
 			{
-				element.controller.setViewIndexInContainer( face, index );
+				element.controller.setViewIndexInContainer( (face as IViewContainerAdapter), index );
 			}
 		}
 
@@ -124,13 +123,13 @@ package tl.view
 
 			if ( _face != null )
 			{
-				element.controller.removeViewFromContainer( face );
+				element.controller.removeViewFromContainer( (face as IViewContainerAdapter) );
 			}
 
 			_subViews.splice( _subViews.indexOf( element ), 1 );
 		}
 
-		override protected function lazyCreateFace() : *
+		override protected function lazyCreateFace() : IDisplayObject
 		{
 			var result : * = IoCHelper.resolve( IViewContainerAdapter, this );
 			for each( var element : IView in _subViews )
