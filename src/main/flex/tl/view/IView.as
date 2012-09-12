@@ -11,7 +11,7 @@ package tl.view
 	 * Main interface for any View
 	 *
 	 */
-	public interface IView extends IEventDispatcher, IStateClient2
+	public interface IView extends IEventDispatcher, IStateClient2, IDisplayObject
 	{
 		function get controller() : IVIewController;
 

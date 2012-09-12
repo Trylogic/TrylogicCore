@@ -60,6 +60,95 @@
 			return _controller;
 		}
 
+		public function get x() : Number
+		{
+			return face.x;
+		}
+
+		[Bindable]
+		public function set x( value : Number ) : void
+		{
+			face.x = value;
+		}
+
+		public function get y() : Number
+		{
+			return face.y;
+		}
+
+		[Bindable]
+		public function set y( value : Number ) : void
+		{
+			face.y = value;
+		}
+
+		public function get width() : Number
+		{
+			return face.width;
+		}
+
+		[Bindable]
+		public function set width( value : Number ) : void
+		{
+			face.width = value;
+		}
+
+		public function get height() : Number
+		{
+			return face.height;
+		}
+
+		[Bindable]
+		public function set height( value : Number ) : void
+		{
+			face.height = value;
+		}
+
+		public function get scaleX() : Number
+		{
+			return face.scaleX;
+		}
+
+		[Bindable]
+		public function set scaleX( value : Number ) : void
+		{
+			face.scaleX = value;
+		}
+
+		public function get scaleY() : Number
+		{
+			return face.scaleY;
+		}
+
+		[Bindable]
+		public function set scaleY( value : Number ) : void
+		{
+			face.scaleY = value;
+		}
+
+		public function get alpha() : Number
+		{
+			return face.alpha;
+		}
+
+		[Bindable]
+		public function set alpha( value : Number ) : void
+		{
+			face.alpha = value;
+		}
+
+		public function get visible() : Boolean
+		{
+			return face.visible;
+		}
+
+		[Bindable]
+		public function set visible( value : Boolean ) : void
+		{
+			face.visible = value;
+		}
+
+
 		public function AbstractView()
 		{
 		}
@@ -151,15 +240,7 @@
 		[Bindable(event="propertyChange")]
 		public function set currentState( value : String ) : void
 		{
-			var oldValue : String = _statesImpl.currentState;
-			if ( value == oldValue )
-			{
-				return;
-			}
-
 			_statesImpl.currentState = value;
-
-			dispatchEvent( PropertyChangeEvent.createUpdateEvent( this, "currentState", oldValue, value ) );
 		}
 
 		[ArrayElementType("mx.states.State")]
@@ -170,11 +251,6 @@
 
 		public function set states( value : Array ) : void
 		{
-			if ( value == _statesImpl.states )
-			{
-				return;
-			}
-
 			_statesImpl.states = value;
 		}
 
@@ -186,11 +262,6 @@
 
 		public function set transitions( value : Array ) : void
 		{
-			if ( value == _statesImpl.transitions )
-			{
-				return;
-			}
-
 			_statesImpl.transitions = value;
 		}
 

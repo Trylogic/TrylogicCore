@@ -131,7 +131,7 @@ package tl.view
 
 		override protected function lazyCreateFace() : IDisplayObject
 		{
-			var result : * = IoCHelper.resolve( IViewContainerAdapter, this );
+			var result : IViewContainerAdapter = IoCHelper.resolve( IViewContainerAdapter, this );
 			for each( var element : IView in _subViews )
 			{
 				element.controller.addViewToContainer( result );
