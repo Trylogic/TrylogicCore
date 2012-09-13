@@ -22,11 +22,6 @@ package tl.view
 			return (face as IViewContainerAdapter).viewScrollRect;
 		}
 
-		public function get numViews() : uint
-		{
-			return _subViews.length;
-		}
-
 		/**
 		 * Inner childs.
 		 *
@@ -34,34 +29,24 @@ package tl.view
 		 */
 		public function set subViews( value : Vector.<IView> ) : void
 		{
-			if ( value == null )
-			{
-				value = new Vector.<IView>();
-			}
+			value ||= new Vector.<IView>();
 
-			var element : IView;
-
-			for each ( element in _subViews.concat() )
-			{
-				if ( value.indexOf( element ) == -1 )
-				{
-					removeView( element );
-				}
-			}
-
-			for each ( element in value )
-			{
-				if ( _subViews.indexOf( element ) == -1 )
-				{
-					addView( element );
-				}
-				else
-				{
-					setViewIndex( element, -1 );
-				}
-			}
 
 			_subViews = value;
+			const faceAsViewContainerAdapter : IViewContainerAdapter = _face as IViewContainerAdapter;
+			if ( faceAsViewContainerAdapter )
+			{
+				while ( faceAsViewContainerAdapter.numViews )
+				{
+					faceAsViewContainerAdapter.removeViewAt( 0 );
+				}
+
+				// TODO: optimize
+				for ( var i : uint = 0; i < _subViews.length; i++ )
+				{
+					_subViews[i].controller.addViewToContainerAtIndex( faceAsViewContainerAdapter, i );
+				}
+			}
 		}
 
 		public final function get subViews() : Vector.<IView>
@@ -73,66 +58,10 @@ package tl.view
 		{
 		}
 
-		public function addView( element : IView ) : void
-		{
-			if ( _subViews.indexOf( element ) != -1 )
-			{
-				return;
-			}
-
-			if ( _face != null )
-			{
-				element.controller.addViewToContainer( (face as IViewContainerAdapter) );
-			}
-
-			_subViews.push( element );
-		}
-
-		public function addViewAtIndex( element : IView, index : int ) : void
-		{
-			addView( element );
-
-			setViewIndex( element, index );
-		}
-
-		public function setViewIndex( element : IView, index : int ) : void
-		{
-			if ( _subViews.indexOf( element ) == -1 )
-			{
-				return;
-			}
-
-			// TODO: throw error if element is not our child
-			if ( _face != null )
-			{
-				element.controller.setViewIndexInContainer( (face as IViewContainerAdapter), index );
-			}
-		}
-
-		public function removeViewAt( index : int ) : void
-		{
-			removeView( _subViews[index] );
-		}
-
-		public function removeView( element : IView ) : void
-		{
-			if ( _subViews.indexOf( element ) == -1 )
-			{
-				return;
-			}
-
-			if ( _face != null )
-			{
-				element.controller.removeViewFromContainer( (face as IViewContainerAdapter) );
-			}
-
-			_subViews.splice( _subViews.indexOf( element ), 1 );
-		}
-
 		override protected function lazyCreateFace() : IDisplayObject
 		{
 			var result : IViewContainerAdapter = IoCHelper.resolve( IViewContainerAdapter, this );
-			for each( var element : IView in _subViews )
+			for each ( var element : IView in _subViews )
 			{
 				element.controller.addViewToContainer( result );
 			}
