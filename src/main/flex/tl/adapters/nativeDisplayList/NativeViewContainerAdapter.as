@@ -39,6 +39,7 @@ package tl.adapters.nativeDisplayList
 		public function addViewAtIndex( view : IView, index : int ) : void
 		{
 			addChildAt( view.face as DisplayObject, index );
+			setChildIndex( view.face as DisplayObject, index );
 		}
 
 		public function setViewIndex( view : IView, index : int ) : void

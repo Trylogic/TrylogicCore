@@ -29,9 +29,6 @@ package tl.view
 		 */
 		public function set subViews( value : Vector.<IView> ) : void
 		{
-			value ||= new Vector.<IView>();
-
-
 			_subViews = value;
 			const faceAsViewContainerAdapter : IViewContainerAdapter = _face as IViewContainerAdapter;
 			if ( faceAsViewContainerAdapter )

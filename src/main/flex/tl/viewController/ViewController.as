@@ -39,14 +39,14 @@
 
 		public function addViewToContainerAtIndex( container : IViewContainerAdapter, index : int ) : void
 		{
-			addViewToContainer( container );
+			lifecycle::viewBeforeAddedToStage();
 
-			setViewIndexInContainer( container, index );
+			container.addViewAtIndex( view, index );
 		}
 
 		public function setViewIndexInContainer( container : IViewContainerAdapter, index : int ) : void
 		{
-			container.setViewIndex( view, index < 0 ? (container.numViews + index) : index );
+			container.setViewIndex( view, index );
 		}
 
 		public function removeViewFromContainer( container : IViewContainerAdapter ) : void
