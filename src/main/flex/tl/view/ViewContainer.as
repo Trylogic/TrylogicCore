@@ -10,6 +10,8 @@ package tl.view
 	public class ViewContainer extends AbstractView
 	{
 
+		use namespace viewInternal;
+
 		protected var _subViews : Vector.<IView> = new Vector.<IView>();
 
 		public function set viewScrollRect( value : Rectangle ) : void
@@ -31,21 +33,17 @@ package tl.view
 		{
 			var oldSubviews : Vector.<IView> = _subViews;
 			_subViews = value;
-			const faceAsViewContainerAdapter : IViewContainerAdapter = _face as IViewContainerAdapter;
-			if ( faceAsViewContainerAdapter )
+			for each( var element : IView in oldSubviews )
 			{
-				for each( var element : IView in oldSubviews )
+				if ( value.indexOf( element ) == -1 )
 				{
-					if ( value.indexOf( element ) == -1 )
-					{
-						element.controller.removeViewFromContainer( faceAsViewContainerAdapter );
-					}
+					uninstallChildView( element );
 				}
+			}
 
-				for ( var i : uint = 0; i < value.length; i++ )
-				{
-					value[i].controller.addViewToContainerAtIndex( faceAsViewContainerAdapter, i );
-				}
+			for ( var i : uint = 0; i < value.length; i++ )
+			{
+				installChildViewAtIndex( value[i], i );
 			}
 		}
 
@@ -56,6 +54,22 @@ package tl.view
 
 		public function ViewContainer()
 		{
+		}
+
+		viewInternal function installChildViewAtIndex( child : IView, index : int ) : void
+		{
+			if ( _face )
+			{
+				child.controller.addViewToContainerAtIndex( face as IViewContainerAdapter, index );
+			}
+		}
+
+		viewInternal function uninstallChildView( child : IView ) : void
+		{
+			if ( _face )
+			{
+				child.controller.removeViewFromContainer( face as IViewContainerAdapter );
+			}
 		}
 
 		override protected function lazyCreateFace() : IDisplayObject

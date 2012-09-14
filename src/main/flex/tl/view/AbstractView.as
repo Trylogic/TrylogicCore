@@ -240,7 +240,10 @@
 		[Bindable(event="propertyChange")]
 		public function set currentState( value : String ) : void
 		{
-			_statesImpl.currentState = value;
+			if ( value != currentState )
+			{
+				_statesImpl.currentState = value;
+			}
 		}
 
 		[ArrayElementType("mx.states.State")]
