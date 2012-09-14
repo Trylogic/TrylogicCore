@@ -55,6 +55,12 @@ package tl.adapters.starling
 			removeChildAt( index );
 		}
 
+		public function getViewIndex( view : IView ) : int
+		{
+			var faceAsDisplayObject : DisplayObject = view.face as DisplayObject;
+			return faceAsDisplayObject.parent != this ? -1 : getChildIndex( faceAsDisplayObject );
+		}
+
 		override public function render( support : RenderSupport, alpha : Number ) : void
 		{
 			if ( mClipRect == null )

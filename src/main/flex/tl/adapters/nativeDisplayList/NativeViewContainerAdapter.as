@@ -56,5 +56,11 @@ package tl.adapters.nativeDisplayList
 		{
 			removeChildAt( index );
 		}
+
+		public function getViewIndex( view : IView ) : int
+		{
+			var faceAsDisplayObject : DisplayObject = view.face as DisplayObject;
+			return faceAsDisplayObject.parent != this ? -1 : getChildIndex( faceAsDisplayObject );
+		}
 	}
 }

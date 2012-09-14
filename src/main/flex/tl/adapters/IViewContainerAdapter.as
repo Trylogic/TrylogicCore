@@ -19,6 +19,8 @@ package tl.adapters
 
 		function removeViewAt( index : int ) : void;
 
+		function getViewIndex( view : IView ) : int;
+
 		function get numViews() : uint;
 
 		function set viewScrollRect( value : Rectangle ) : void;

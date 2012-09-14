@@ -1,8 +1,6 @@
 ﻿package tl.viewController
 {
 
-	import flash.display.DisplayObjectContainer;
-
 	import tl.view.IView;
 	import tl.adapters.IViewContainerAdapter;
 

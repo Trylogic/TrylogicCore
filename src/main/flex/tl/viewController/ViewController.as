@@ -53,7 +53,7 @@
 		{
 			lifecycle::viewBeforeRemovedFromStage();
 
-			if ( viewIsLoaded )
+			if ( viewIsLoaded && container.getViewIndex( view ) != -1 )
 			{
 				container.removeView( view );
 			}

@@ -29,19 +29,22 @@ package tl.view
 		 */
 		public function set subViews( value : Vector.<IView> ) : void
 		{
+			var oldSubviews : Vector.<IView> = _subViews;
 			_subViews = value;
 			const faceAsViewContainerAdapter : IViewContainerAdapter = _face as IViewContainerAdapter;
 			if ( faceAsViewContainerAdapter )
 			{
-				while ( faceAsViewContainerAdapter.numViews )
+				for each( var element : IView in oldSubviews )
 				{
-					faceAsViewContainerAdapter.removeViewAt( 0 );
+					if ( value.indexOf( element ) == -1 )
+					{
+						element.controller.removeViewFromContainer( faceAsViewContainerAdapter );
+					}
 				}
 
-				// TODO: optimize
-				for ( var i : uint = 0; i < _subViews.length; i++ )
+				for ( var i : uint = 0; i < value.length; i++ )
 				{
-					_subViews[i].controller.addViewToContainerAtIndex( faceAsViewContainerAdapter, i );
+					value[i].controller.addViewToContainerAtIndex( faceAsViewContainerAdapter, i );
 				}
 			}
 		}
@@ -58,9 +61,9 @@ package tl.view
 		override protected function lazyCreateFace() : IDisplayObject
 		{
 			var result : IViewContainerAdapter = IoCHelper.resolve( IViewContainerAdapter, this );
-			for each ( var element : IView in _subViews )
+			for ( var i : uint = 0; i < _subViews.length; i++ )
 			{
-				element.controller.addViewToContainer( result );
+				_subViews[i].controller.addViewToContainerAtIndex( result, i );
 			}
 			return result;
 		}
