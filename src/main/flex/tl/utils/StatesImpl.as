@@ -30,6 +30,11 @@ package tl.utils
 
 		public function set currentState( value : String ) : void
 		{
+			if ( _currentState == value )
+			{
+				return;
+			}
+
 			_oldState = _currentState;
 			_currentState = value;
 			statesInvalidate();

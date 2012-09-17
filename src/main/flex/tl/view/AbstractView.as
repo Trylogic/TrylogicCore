@@ -237,13 +237,10 @@
 			return _statesImpl.currentState;
 		}
 
-		[Bindable(event="propertyChange")]
+		[Bindable(event="currentStateChange")]
 		public function set currentState( value : String ) : void
 		{
-			if ( value != currentState )
-			{
-				_statesImpl.currentState = value;
-			}
+			_statesImpl.currentState = value;
 		}
 
 		[ArrayElementType("mx.states.State")]
