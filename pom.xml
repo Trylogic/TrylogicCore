@@ -27,7 +27,7 @@
 				<configuration>
 					<skipTest>true</skipTest>
 					<skipTests>true</skipTests>
-					<debug>false</debug>
+					<debug>true</debug>
 					<optimize>true</optimize>
 					<includeClasses>
 						<include>tl.view.AbstractView</include>
