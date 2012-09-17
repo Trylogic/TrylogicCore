@@ -9,7 +9,6 @@ package tl.view
 	[DefaultProperty("subViews")]
 	public class ViewContainer extends AbstractView
 	{
-
 		use namespace viewInternal;
 
 		protected var _subViews : Vector.<IView> = new Vector.<IView>();
