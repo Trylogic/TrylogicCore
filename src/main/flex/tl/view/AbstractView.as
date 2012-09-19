@@ -29,7 +29,7 @@
 
 		public var eventMaps : Vector.<EventMap>;
 
-		protected var controllerClass : Class = ViewController;
+		public var controllerClass : Class = ViewController;
 
 		[Inject]
 		protected var _statesImpl : IStateClient2 = IoCHelper.resolve( IStateClient2, this );
