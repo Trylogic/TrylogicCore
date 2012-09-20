@@ -38,19 +38,17 @@
 
 		public function set services( value : Vector.<IService> ) : void
 		{
-			if(value == _services)
+			if ( value == _services )
 			{
 				return;
 			}
 
 			for each( var service : IService in value )
 			{
-				SingletonFactory.registerImplementation( Object( service ).constructor, service );
+				IoCHelper.registerSingleton( Object( service ).constructor, service );
 			}
 
 			_services = value;
-
-			initServices();
 		}
 
 		public function AbstractBootstrap()
@@ -73,11 +71,11 @@
 			}
 
 			/* See comment at subModules declaration
-			for each( var bootstrap : IBootstrap in subModules )
-			{
-				bootstrap.initServices();
-			}
-			*/
+			 for each( var bootstrap : IBootstrap in subModules )
+			 {
+			 bootstrap.initServices();
+			 }
+			 */
 		}
 
 		public function init( applicationLoader : TrylogicApplicationLoader ) : void
