@@ -23,10 +23,21 @@
 		// Sorry. Not properly tested yet :-[
 		//public var subModules : Vector.<IBootstrap>;
 
-		public var applicationView : IView;
+		public var applicationViewClass : Class;
 
+		protected var _applicationView : IView;
 		protected var initialized : Boolean = false;
 		protected var _services : Vector.<IService>;
+
+		protected function get applicationView() : IView
+		{
+			if ( applicationViewClass == null )
+			{
+				throw new ArgumentError( "applicationViewClass of IBootstrap can't be null" );
+			}
+
+			return _applicationView ||= new applicationViewClass();
+		}
 
 		public function set iocMap( value : Vector.<IAssociate> ) : void
 		{
@@ -83,11 +94,6 @@
 			if ( initialized )
 			{
 				throw new IllegalOperationError( "You can't call IBootstrap.init manually" );
-			}
-
-			if ( applicationView == null )
-			{
-				throw new ArgumentError( "applicationView of IBootstrap can't be null" );
 			}
 
 			initialized = true;

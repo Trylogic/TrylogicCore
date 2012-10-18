@@ -37,13 +37,12 @@ import tl.ioc.IoCHelper;
 
 class StarlingScene extends StarlingViewContainerAdapter
 {
-
 	public function StarlingScene()
 	{
 		var bootstrap : StarlingBootstrap = IoCHelper.resolve( IBootstrap, this );
 
 		bootstrap.init( IoCHelper.resolve( TrylogicApplicationLoader, this ) );
 
-		( bootstrap as StarlingBootstrap ).applicationView.controller.addViewToContainer( this );
+		( bootstrap as StarlingBootstrap ).starlingApplicationView.controller.addViewToContainer( this );
 	}
 }
