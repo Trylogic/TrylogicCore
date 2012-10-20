@@ -91,14 +91,9 @@
 		<dependency>
 			<groupId>ru.trylogic</groupId>
 			<artifactId>monkey-flex</artifactId>
-			<version>[1.0.0-SNAPSHOT,]</version>
+			<version>[1.0.1-SNAPSHOT,]</version>
 			<type>swc</type>
-			<exclusions>
-				<exclusion>
-					<groupId>com.adobe.flex.framework</groupId>
-					<artifactId>playerglobal</artifactId>
-				</exclusion>
-			</exclusions>
+			<scope>merged</scope>
 		</dependency>
 
 		<dependency>
@@ -115,12 +110,6 @@
 			<version>1.1.0</version>
 			<type>swc</type>
 			<scope>external</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>com.adobe.flex.framework</groupId>
-					<artifactId>playerglobal</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -128,7 +117,7 @@
 			<artifactId>flex-framework</artifactId>
 			<version>${flex.framework.version}</version>
 			<type>pom</type>
-			<scope>provided</scope>
+			<scope>external</scope>
 		</dependency>
 
 		<dependency>
@@ -137,9 +126,8 @@
 			<version>${flex.framework.version}</version>
 			<classifier>11.1</classifier>
 			<type>swc</type>
-			<scope>provided</scope>
+			<scope>external</scope>
 		</dependency>
-
 	</dependencies>
 	<repositories>
 		<repository>
