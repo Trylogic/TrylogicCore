@@ -13,10 +13,6 @@
 	/**
 	 * Basic IView implementation
 	 *
-	 * Note: Yep, it's extends UIComponent... BUT! This "mx.mx.core.UIComponent" is monkey-patched,
-	 * and there is no flex-related stuff (argh...).
-	 * UIComponent is necessary for MXML - that's why i'm using it, don't judge me xD
-	 *
 	 * @see IViewController
 	 *
 	 */
