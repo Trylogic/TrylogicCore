@@ -172,7 +172,7 @@
 		<repository>
 			<id>trylogic-releases</id>
 			<name>Trylogic releases</name>
-			<url>https://forge.cloudbees.com/a/trylogic/repositories/release/</url>
+			<url>http://repository-trylogic.forge.cloudbees.com/release/</url>
 			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>daily</updatePolicy>
