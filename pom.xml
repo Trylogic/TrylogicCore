@@ -214,14 +214,14 @@
 		<snapshotRepository>
 			<id>trylogic</id>
 			<name>Trylogic</name>
-			<url>http://repo.trylogic.ru/content/repositories/public/</url>
+			<url>http://repository-trylogic.forge.cloudbees.com/snapshot/</url>
 			<layout>default</layout>
 		</snapshotRepository>
 
 		<repository>
 			<id>trylogic-releases</id>
 			<name>Trylogic releases</name>
-			<url>http://repo.trylogic.ru/content/repositories/releases/</url>
+			<url>https://forge.cloudbees.com/a/trylogic/repositories/release</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
