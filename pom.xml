@@ -9,10 +9,12 @@
 	<packaging>swc</packaging>
 	<version>2.2.0-SNAPSHOT</version>
 
-	<properties>
-		<flexmojos.version>4.2-beta</flexmojos.version>
-		<flex.framework.version>4.6.b.23201</flex.framework.version>
-	</properties>
+	<parent>
+		<groupId>ru.trylogic</groupId>
+		<artifactId>trylogic-framework-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
 
 	<build>
 		<sourceDirectory>src/main/flex</sourceDirectory>
@@ -22,13 +24,7 @@
 			<plugin>
 				<groupId>org.sonatype.flexmojos</groupId>
 				<artifactId>flexmojos-maven-plugin</artifactId>
-				<version>${flexmojos.version}</version>
-				<extensions>true</extensions>
 				<configuration>
-					<skipTest>true</skipTest>
-					<skipTests>true</skipTests>
-					<debug>true</debug>
-					<optimize>true</optimize>
 					<includeClasses>
 						<include>tl.view.AbstractView</include>
 						<include>tl.view.ViewContainer</include>
@@ -61,20 +57,6 @@
 						<namespace>http://www.trylogic.ru/starling</namespace>
 					</includeNamespaces>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.adobe.flex</groupId>
-						<artifactId>compiler</artifactId>
-						<version>${flex.framework.version}</version>
-						<type>pom</type>
-						<exclusions>
-							<exclusion>
-								<groupId>com.adobe.flex.framework</groupId>
-								<artifactId>playerglobal</artifactId>
-							</exclusion>
-						</exclusions>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
@@ -111,118 +93,6 @@
 			<type>swc</type>
 			<scope>external</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>com.adobe.flex.framework</groupId>
-			<artifactId>flex-framework</artifactId>
-			<version>${flex.framework.version}</version>
-			<type>pom</type>
-			<scope>external</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.adobe.flex.framework</groupId>
-			<artifactId>playerglobal</artifactId>
-			<version>${flex.framework.version}</version>
-			<classifier>11.1</classifier>
-			<type>swc</type>
-			<scope>external</scope>
-		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>sonatype-repository</id>
-			<url>https://oss.sonatype.org/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-				<updatePolicy>never</updatePolicy>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>flex-mojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>trylogic</id>
-			<name>Trylogic</name>
-			<url>http://repository-trylogic.forge.cloudbees.com/snapshot/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</snapshots>
-			<layout>default</layout>
-		</repository>
 
-		<repository>
-			<id>trylogic-releases</id>
-			<name>Trylogic releases</name>
-			<url>http://repository-trylogic.forge.cloudbees.com/release/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>sonatype-repository</id>
-			<url>https://oss.sonatype.org/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-				<updatePolicy>never</updatePolicy>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>flex-mojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>trylogic</id>
-			<name>Trylogic</name>
-			<url>http://repository-trylogic.forge.cloudbees.com/snapshot/</url>
-			<layout>default</layout>
-		</snapshotRepository>
-
-		<repository>
-			<id>trylogic-releases</id>
-			<name>Trylogic releases</name>
-			<url>https://forge.cloudbees.com/a/trylogic/repositories/release</url>
-			<layout>default</layout>
-		</repository>
-	</distributionManagement>
 </project>
